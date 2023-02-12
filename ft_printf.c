@@ -6,11 +6,27 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 18:00:56 by agaley            #+#    #+#             */
-/*   Updated: 2023/02/12 00:21:35 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/02/12 18:01:16 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft/libft.h"
+
+static int	ft_putunbr_fd(unsigned int nb, int fd)
+{
+	return (ft_putunbr_base_fd(nb, "0123456789", fd));
+}
+
+static int	ft_putlowhex_fd(unsigned int hex, int fd)
+{
+	return (ft_puthex_fd((unsigned long int)hex, 1, fd));
+}
+
+static int	ft_putuphex_fd(unsigned int hex, int fd)
+{
+	return (ft_puthex_fd((unsigned long int)hex, 0, fd));
+}
 
 static int	ft_putflag(char flag, va_list args)
 {
@@ -18,23 +34,21 @@ static int	ft_putflag(char flag, va_list args)
 
 	size = 0;
 	if (flag == '%')
-		ft_putchar_fd('%', 1);
+		size = ft_putchar_fd('%', 1);
 	else if (flag == 'c')
-		ft_putchar_fd(va_arg(args, int), 1);
+		size = ft_putchar_fd(va_arg(args, int), 1);
 	else if (flag == 'd' || flag == 'i')
-		size += ft_putnbr_fd(va_arg(args, int), 1);
+		size = ft_putnbr_fd(va_arg(args, int), 1);
 	else if (flag == 'p')
-		size += ft_putptr_fd(va_arg(args, void *), 1);
+		size = ft_putptr_fd(va_arg(args, void *), 1);
 	else if (flag == 's')
-		size += ft_putstr_fd(va_arg(args, char *), 1);
+		size = ft_putstr_fd(va_arg(args, char *), 1);
 	else if (flag == 'u')
-		size += ft_putunnbr_fd(va_arg(args, unsigned int), 1);
+		size = ft_putunbr_fd(va_arg(args, unsigned int), 1);
 	else if (flag == 'x')
-		size += ft_putlowhex_fd(va_arg(args, unsigned int), 1);
+		size = ft_putlowhex_fd(va_arg(args, unsigned int), 1);
 	else if (flag == 'X')
-		size += ft_putuphex_fd(va_arg(args, unsigned int), 1);
-	if (flag == '%' || flag == 'c')
-		size++;
+		size = ft_putuphex_fd(va_arg(args, unsigned int), 1);
 	return (size);
 }
 
