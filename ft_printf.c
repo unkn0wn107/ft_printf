@@ -6,12 +6,11 @@
 /*   By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 18:00:56 by agaley            #+#    #+#             */
-/*   Updated: 2023/02/12 18:01:16 by agaley           ###   ########lyon.fr   */
+/*   Updated: 2023/02/12 21:16:05 by agaley           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
 static int	ft_putunbr_fd(unsigned int nb, int fd)
 {
